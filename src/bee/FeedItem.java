@@ -1,4 +1,5 @@
 package bee;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -47,13 +48,84 @@ public class FeedItem implements Comparable<FeedItem> {
 	 */
 	@Override
 	public int compareTo(FeedItem another) {
-		if (this.pubDate.equals(another.pubDate)) {
+		if (this.pubDate == null) {
+			return another.pubDate == null ? 0 : -1;
+		} else if (another.pubDate == null) {
+			return 1;
+		} else if (this.pubDate.equals(another.pubDate)) {
 			return 0;
 		} else if (this.pubDate.compareTo(another.pubDate) == -1) {
 			return -1;
 		} else {
 			return 1;
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((link == null) ? 0 : link.hashCode());
+		result = prime * result + ((pubDate == null) ? 0 : pubDate.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof FeedItem))
+			return false;
+		FeedItem other = (FeedItem) obj;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (creator == null) {
+			if (other.creator != null)
+				return false;
+		} else if (!creator.equals(other.creator))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (link == null) {
+			if (other.link != null)
+				return false;
+		} else if (!link.equals(other.link))
+			return false;
+		if (pubDate == null) {
+			if (other.pubDate != null)
+				return false;
+		} else if (!pubDate.equals(other.pubDate))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
 	}
 
 	/**
