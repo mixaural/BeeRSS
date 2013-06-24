@@ -16,6 +16,7 @@ public class FeedItem implements Comparable<FeedItem> {
 	protected Timestamp pubDate;
 	protected String creator;
 	protected List<String> category;
+	protected final String datePattern = "yyyy.MM.dd. HH:mm";
 
 	// TODO Implement new version, with public constructor.
 	public FeedItem(String title, String link, String description,
@@ -134,7 +135,7 @@ public class FeedItem implements Comparable<FeedItem> {
 	 *         Returns the PubDate field in human readable form.
 	 */
 	public String getDateInFormattedString() {
-		return new SimpleDateFormat("yyyy.MM.dd. HH:mm", Locale.ENGLISH)
+		return new SimpleDateFormat(datePattern, Locale.ENGLISH)
 				.format(this.pubDate);
 	}
 
