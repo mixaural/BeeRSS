@@ -1,4 +1,5 @@
 package bee;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -28,8 +29,8 @@ import org.xml.sax.SAXException;
  */
 public class Feed {
 
-	private final URL url;
-	private List<FeedItem> feed = new ArrayList<FeedItem>();
+	protected final URL url;
+	protected List<FeedItem> feed = new ArrayList<FeedItem>();
 
 	static final String PUB_DATE = "pubDate";
 	static final String DESCRIPTION = "description";
@@ -59,7 +60,6 @@ public class Feed {
 		InputStream in = openStream(this.url);
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document dom = builder.parse(in);
 		Element root = dom.getDocumentElement();
@@ -75,7 +75,7 @@ public class Feed {
 	 * @return
 	 * @throws IOException
 	 */
-	private InputStream openStream(URL url) throws IOException {
+	protected InputStream openStream(URL url) throws IOException {
 		URLConnection uc = url.openConnection();
 		InputStream is = uc.getInputStream();
 		return is;
@@ -87,7 +87,7 @@ public class Feed {
 	 * 
 	 *         Parses the given parameter to date.
 	 */
-	private Date convertPubDate(String s) {
+	protected Date convertPubDate(String s) {
 		DateFormat formatter = new SimpleDateFormat(
 				"EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 		Date date = new Date();
@@ -105,7 +105,7 @@ public class Feed {
 	 * 
 	 *         Creates a FeedItem from the given Node type parameter.
 	 */
-	private FeedItem createItemFromNode(Node node) {
+	protected FeedItem createItemFromNode(Node node) {
 		String description = "";
 		String title = "";
 		String link = "";
@@ -138,14 +138,14 @@ public class Feed {
 	/**
 	 * @return the feed
 	 */
-	protected List<FeedItem> getFeed() {
+	public List<FeedItem> getFeed() {
 		return feed;
 	}
 
 	/**
 	 * @return the url
 	 */
-	protected URL getUrl() {
+	public URL getUrl() {
 		return url;
 	}
 }
